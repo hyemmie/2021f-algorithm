@@ -70,9 +70,6 @@ class Solution2 {
 			sub_length[0][i] = 0;
 		} 
 
-		for(int i = 1; i <= n; i++) {
-			sub_length[i][i] = 1;
-		} 
 
 		for(int start = 1; start <= n; start++) { 
 			for(int end = n; end > 0; end--) { 

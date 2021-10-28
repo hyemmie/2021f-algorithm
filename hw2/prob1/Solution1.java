@@ -74,10 +74,10 @@ class Solution1 {
 		// initialize matrix with every char of string
 		for(int diag = 1; diag <= n; diag++) {
 			counter[diag][diag] = new CaseCounter();
-			String curr = s.substring(diag - 1, diag);
-			if (curr.equals("a")) {
+			char curr = s.charAt(diag - 1);
+			if (curr == 'a') {
 				counter[diag][diag].case_a += 1;
-			} else if (curr.equals("b")) {
+			} else if (curr == 'b') {
 				counter[diag][diag].case_b += 1;
 			} else {
 				counter[diag][diag].case_c += 1;
