@@ -68,6 +68,7 @@ class Solution3 {
 	public static int pebble() {
 		int[][] peb = new int[6][n];
 		int[][] weight = new int[6][n];
+		int[][] compatible = {{3,4}, {2,5}, {1,5}, {0,4}, {0,3}, {1,2}};
 
 		for (int i = 0; i < n; i++) {
 			weight[0][i] = A[0][i] - A[2][i];
@@ -85,34 +86,21 @@ class Solution3 {
 		for (int i = 1; i < n; i++) { 
 			for (int j = 0; j < 6; j++) { 
 				int temp = 0;
-				int[] comp = compatible(j);
-				for (int q = 0; q < comp.length; q++) {
-					int p = comp[q];
-					if (peb[p][i - 1] > temp) { 
-						temp = peb[p][i - 1];
+				for (int q = 0; q < 2; q++) {
+					int p = compatible[j][q];
+					if (peb[p][i-1] > temp) { 
+						temp = peb[p][i-1];
 					}
 				}
 				peb[j][i] = temp + weight[j][i];
-				}
 			}
+		}
 
 		int selectedSum = 0;
 		for (int p = 0; p < 6; p++) {
 			if (peb[p][n-1] > selectedSum) selectedSum = peb[p][n-1];
 		}
 		return selectedSum;
-	}
-
-	public static int[] compatible(int p) {
-		switch (p) {
-			case (0): return new int[] {3,4};
-			case (1): return new int[] {2,5};
-			case (2): return new int[] {1,5};
-			case (3): return new int[] {0,4};
-			case (4): return new int[] {0,3};
-			case (5): return new int[] {1,2};
-			default: return  new int[] {0};
-		}
 	}
 }
 
