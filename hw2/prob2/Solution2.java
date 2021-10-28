@@ -48,9 +48,8 @@ class Solution2 {
 			YOUR CODE HERE
 			Save your answer to the variable Answer
 			 */
-			length = longest_palindrome();
 			/////////////////////////////////////////////////////////////////////////////////////////////
-			Answer = length;
+			Answer = longest_palindrome();
 
 			// Print the answer to output.txt
 			pw.println("#" + test_case + " " + Answer);
