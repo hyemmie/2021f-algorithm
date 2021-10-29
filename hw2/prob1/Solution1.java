@@ -69,18 +69,22 @@ class Solution1 {
 	}
 
 	public static void calculate_substring() {
-		CaseCounter[][] counter = new CaseCounter[n+1][n+1];
+		// CaseCounter[][] counter = new CaseCounter[n+1][n+1];
+    long[][] count_a = new long[n+1][n+1];
+    long[][] count_b = new long[n+1][n+1];
+    long[][] count_c = new long[n+1][n+1];
+
 
 		// initialize matrix with every char of string
 		for(int diag = 1; diag <= n; diag++) {
-			counter[diag][diag] = new CaseCounter();
+			// counter[diag][diag] = new CaseCounter();
 			char curr = s.charAt(diag - 1);
 			if (curr == 'a') {
-				counter[diag][diag].case_a += 1;
+				count_a[diag][diag] += 1;
 			} else if (curr == 'b') {
-				counter[diag][diag].case_b += 1;
+				count_b[diag][diag] += 1;
 			} else {
-				counter[diag][diag].case_c += 1;
+				count_c[diag][diag] += 1;
 			}
 		}
 
@@ -88,55 +92,28 @@ class Solution1 {
 		for(int i = 1; i < n; i++) {
 			for(int start = 1; start <= n-i; start++) {
 				int end = i + start;
-				counter[start][end] = new CaseCounter();
-
-				CaseCounter sub_start, sub_end;
 				for(int k = start; k < end; k++) {
-					sub_start = counter[start][k];
-					sub_end = counter[k + 1][end];
-
-					if (sub_start.case_a > 0) {
-						if (sub_end.case_a > 0)
-							counter[start][end].case_b += sub_start.case_a * sub_end.case_a;
-						if (sub_end.case_b > 0)
-							counter[start][end].case_b += sub_start.case_a * sub_end.case_b;
-						if (sub_end.case_c > 0)
-							counter[start][end].case_a += sub_start.case_a * sub_end.case_c;
+					if (count_a[start][k] > 0) {
+						if (count_a[k + 1][end] > 0) count_b[start][end] += count_a[start][k] * count_a[k + 1][end];
+						if (count_b[k + 1][end] > 0) count_b[start][end] += count_a[start][k] * count_b[k + 1][end];
+						if (count_c[k + 1][end] > 0) count_a[start][end] += count_a[start][k] * count_c[k + 1][end];
 					}
-					if (sub_start.case_b > 0) {
-						if (sub_end.case_a > 0)
-							counter[start][end].case_c += sub_start.case_b * sub_end.case_a;
-						if (sub_end.case_b > 0)
-							counter[start][end].case_b += sub_start.case_b * sub_end.case_b;
-						if (sub_end.case_c > 0)
-							counter[start][end].case_a += sub_start.case_b * sub_end.case_c;
+					if (count_b[start][k] > 0) {
+						if (count_a[k + 1][end] > 0) count_c[start][end] += count_b[start][k] * count_a[k + 1][end];
+						if (count_b[k + 1][end] > 0) count_b[start][end] += count_b[start][k] * count_b[k + 1][end];
+						if (count_c[k + 1][end] > 0) count_a[start][end] += count_b[start][k] * count_c[k + 1][end];
 					}
-					if (sub_start.case_c > 0) {
-						if (sub_end.case_a > 0)
-							counter[start][end].case_a += sub_start.case_c * sub_end.case_a;
-						if (sub_end.case_b > 0)
-							counter[start][end].case_c += sub_start.case_c * sub_end.case_b;
-						if (sub_end.case_c > 0)
-							counter[start][end].case_c += sub_start.case_c * sub_end.case_c;
+					if (count_c[start][k] > 0) {
+            if (count_a[k + 1][end] > 0) count_a[start][end] += count_c[start][k] * count_a[k + 1][end];
+            if (count_b[k + 1][end] > 0) count_c[start][end] += count_c[start][k] * count_b[k + 1][end];
+						if (count_c[k + 1][end] > 0) count_c[start][end] += count_c[start][k] * count_c[k + 1][end];
 					}
 				}
 			}
 		}
 
-		a = counter[1][n].case_a;
-		b = counter[1][n].case_b;
-		c = counter[1][n].case_c;
-	}
-}
-
-class CaseCounter {
-	public long case_a;
-	public long case_b;
-	public long case_c;
-
-	public CaseCounter() {
-		this.case_a = 0;
-		this.case_b = 0;
-		this.case_c = 0;
+		a = count_a[1][n];
+		b = count_b[1][n];
+		c = count_c[1][n];
 	}
 }
