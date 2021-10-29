@@ -69,7 +69,6 @@ class Solution2 {
 			sub_length[0][i] = 0;
 		} 
 
-
 		for(int start = 1; start <= n; start++) { 
 			for(int end = n; end > 0; end--) { 
 				if (s.charAt(start - 1) == s.charAt(end - 1))
