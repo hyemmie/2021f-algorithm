@@ -69,15 +69,11 @@ class Solution1 {
 	}
 
 	public static void calculate_substring() {
-		// CaseCounter[][] counter = new CaseCounter[n+1][n+1];
     long[][] count_a = new long[n+1][n+1];
     long[][] count_b = new long[n+1][n+1];
     long[][] count_c = new long[n+1][n+1];
 
-
-		// initialize matrix with every char of string
 		for(int diag = 1; diag <= n; diag++) {
-			// counter[diag][diag] = new CaseCounter();
 			char curr = s.charAt(diag - 1);
 			if (curr == 'a') {
 				count_a[diag][diag] += 1;
@@ -88,7 +84,6 @@ class Solution1 {
 			}
 		}
 
-		// build matrix with substring
 		for(int i = 1; i < n; i++) {
 			for(int start = 1; start <= n-i; start++) {
 				int end = i + start;
