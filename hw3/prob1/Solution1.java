@@ -6,15 +6,10 @@ import java.io.PrintWriter;
 class Solution1 {
 
   static int N, E;
-	static int N_MAX = 200;
-  static int E_MAX = 10000; 
-	static int[] I = new int[E_MAX+1];
-	static int[] J = new int[E_MAX+1]; 
-	static int[] W = new int[E_MAX+1];
+	static int u, v, w;
 	static int Answer;
 	static int[][] dp;
 	static int[][] weight;
-
 
 	public static void main(String[] args) throws Exception {
 	
@@ -40,10 +35,10 @@ class Solution1 {
 			}
 
 			for (int i = 0; i < E; i++) {
-				I[i] = Integer.parseInt(stk.nextToken());
-				J[i] = Integer.parseInt(stk.nextToken());
-				W[i] = Integer.parseInt(stk.nextToken());
-				weight[I[i]][J[i]] = W[i];
+				u = Integer.parseInt(stk.nextToken());
+				v = Integer.parseInt(stk.nextToken());
+				w = Integer.parseInt(stk.nextToken());
+				weight[u][v] = w;
 			}
 
 			for (int i = 1; i <= N; i++) {
